@@ -28,3 +28,11 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+
+# Protected by licensing
+*Kenney Game Assets*
+*Time Fantasy*
+*Perpetual Diversion*
+
+# Useless files
+Tutorial/~$*.docx
