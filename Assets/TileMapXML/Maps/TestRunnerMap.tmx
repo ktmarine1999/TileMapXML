@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="5" height="5" tilewidth="32" tileheight="32" backgroundcolor="#04010203" nextobjectid="1">
+ <properties>
+  <property name="boolPropertyFalse" type="bool" value="false"/>
+  <property name="boolPropertyTrue" type="bool" value="true"/>
+  <property name="floatProperty" type="float" value="0.01"/>
+  <property name="floatProperty0" type="float" value="0"/>
+  <property name="intProperty" type="int" value="1"/>
+  <property name="intProperty0" type="int" value="0"/>
+  <property name="stringProperty" value="Hello"/>
+ </properties>
+ <tileset firstgid="1" name="outdoor" tilewidth="32" tileheight="32" tilecount="162" columns="9">
+  <image source="Tilesets/Liberated Pixel Cup/outdoor.png" trans="ffaa55" width="288" height="576"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="5" height="5">
+  <data>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+  </data>
+ </layer>
+</map>
