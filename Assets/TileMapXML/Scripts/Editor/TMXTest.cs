@@ -1,23 +1,53 @@
-﻿using UnityEngine;
-using UnityEditor;
-using NUnit.Framework;
+﻿using NUnit.Framework;
+using TileMapXML;
 
 public class TMXTest
 {
+    /// <summary>
+    /// The path to the map file to use for testing
+    /// </summary>
+    const string TMX_FILE_PATH = @"Assets/TileMapXML/Maps/TestRunnerMap.tmx";
 
-    [Test]
-    public void EditorTest()
+    /// <summary>
+    /// The tmx file
+    /// public get private set
+    /// </summary>
+    public TMX tmx { get; private set; }
+
+    /// <summary>
+    /// Load the passed in file into tmx
+    /// </summary>
+    /// <param name="filePath">The path of the file to load</param>
+    public void LoadTMXFile(string filePath)
     {
-        //Arrange
-        var gameObject = new GameObject();
+        tmx = new TMX();
+        tmx.Load(filePath);
+    }//public void LoadTMXFile
 
-        //Act
-        //Try to rename the GameObject
-        var newGameObjectName = "My game object";
-        gameObject.name = newGameObjectName;
+    /// <summary>
+    /// Runs before every NUnit test, this makes sure that we have a clean environment.
+    /// </summary>
+    [SetUp]
+    public void Init()
+    {
+        LoadTMXFile(TMX_FILE_PATH);
+    }//void Init()
 
-        //Assert
-        //The object has a new name
-        Assert.AreEqual(newGameObjectName, gameObject.name);
-    }
-}
+    /// <summary>
+    /// Verify that the tmx variable is not null
+    /// </summary>
+    [Test]
+    public void TMXIsNotNull()
+    {
+        Assert.IsNotNull(tmx, "Failed to load tmx file, " + TMX_FILE_PATH);
+    }//void TMXIsNotNull()
+
+    /// <summary>
+    /// Verify that the map is not null
+    /// </summary>
+    [Test]
+    public void TMXMapIsNotNull()
+    {
+        Assert.IsNotNull(tmx.map, "Failed to load map from " + TMX_FILE_PATH);
+    }//void TMXMapIsNotNull
+}//public class TMXTest

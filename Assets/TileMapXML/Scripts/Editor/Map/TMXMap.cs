@@ -41,6 +41,7 @@ namespace TileMapXML
     /// 
     /// Can contain: properties, tileset, layer, objectgroup, imagelayer
     /// </summary>
+    [XmlRoot("map")]
     public class TMXMap
     {
         #region attributes
