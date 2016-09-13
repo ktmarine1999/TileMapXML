@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Xml.Serialization;
+﻿using System.Xml.Serialization;
 
-namespace TileMapXML.Properties
+namespace TileMapXML
 {
     /// <summary>
     /// <property>
@@ -22,6 +21,23 @@ namespace TileMapXML.Properties
     public class TMXProperty
     {
         #region attributes
+        /// <summary>
+        /// The name of the property
+        /// </summary>
+        [XmlAttribute()]
+        public string name;
+
+        /// <summary>
+        /// The type of the property.Can be string (default), int, float or bool. (since 0.16)
+        /// </summary>
+        [XmlAttribute()]
+        public string type = "string";
+
+        /// <summary>
+        /// The value of the property
+        /// </summary>
+        [XmlAttribute()]
+        public string value;
         #endregion
     }//public class TMXProperty
-}//namespace TileMapXML.Properties
+}//namespace TileMapXML
