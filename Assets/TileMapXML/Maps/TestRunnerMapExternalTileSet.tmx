@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="5" height="5" tilewidth="32" tileheight="32" backgroundcolor="#04010203" nextobjectid="5">
+ <properties>
+  <property name="boolPropertyFalse" type="bool" value="false"/>
+  <property name="boolPropertyTrue" type="bool" value="true"/>
+  <property name="floatProperty" type="float" value="0.01"/>
+  <property name="floatProperty0" type="float" value="0"/>
+  <property name="intProperty" type="int" value="1"/>
+  <property name="intProperty0" type="int" value="0"/>
+  <property name="stringProperty" value="Hello"/>
+ </properties>
+ <tileset firstgid="1" source="Tilesets/Liberated Pixel Cup/outdoor.tsx"/>
+ <layer name="Tile Layer 1" width="5" height="5">
+  <data>
+   <tile gid="32"/>
+   <tile gid="32"/>
+   <tile gid="49"/>
+   <tile gid="79"/>
+   <tile gid="80"/>
+   <tile gid="80"/>
+   <tile gid="80"/>
+   <tile gid="80"/>
+   <tile gid="72"/>
+   <tile gid="52"/>
+   <tile gid="35"/>
+   <tile gid="35"/>
+   <tile gid="8"/>
+   <tile gid="44"/>
+   <tile gid="44"/>
+   <tile gid="52"/>
+   <tile gid="8"/>
+   <tile gid="45"/>
+   <tile gid="73"/>
+   <tile gid="74"/>
+   <tile gid="35"/>
+   <tile gid="36"/>
+   <tile gid="48"/>
+   <tile gid="82"/>
+   <tile gid="83"/>
+  </data>
+ </layer>
+ <layer name="Tile Layer 2" width="5" height="5">
+  <data>
+   <tile gid="159"/>
+   <tile gid="0"/>
+   <tile gid="115"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="124"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="124"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="133"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+  </data>
+ </layer>
+ <objectgroup name="Object Layer 1">
+  <object id="1" gid="144" x="64" y="64" width="32" height="32"/>
+  <object id="2" gid="161" x="0" y="96" width="32" height="32"/>
+  <object id="3" gid="139" x="64" y="160" width="32" height="32"/>
+  <object id="4" gid="3221225539" x="32" y="96" width="32" height="32"/>
+ </objectgroup>
+ <imagelayer name="Image Layer 1" offsetx="160" offsety="0">
+  <image source="Tilesets/Liberated Pixel Cup/outdoor.png" width="288" height="576"/>
+ </imagelayer>
+</map>

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using NUnit.Framework;
 using TileMapXML;
+using TileMapXML.Tileset;
 
 public class TMXTest
 {
@@ -157,6 +158,10 @@ public class TMXTest
                 bool boolValue;
                 Assert.True(bool.TryParse(property.value, out boolValue));
                 break;
+            case "color":
+                break;
+            case "file":
+                break;
             case "string":
                 // A string type should not convet into an int float or bool
                 // if it does then the property did not load in corrrctly
@@ -172,4 +177,136 @@ public class TMXTest
                 break;
         }//void TMXPropertyLoaded(TMXProperty property)
     }
+
+    [Test]
+    public void TMXTilesetsLoaded()
+    {
+        // If there are no tilesets then fail
+        if(tmx.map.tilesets.Count < 1)
+            Assert.Fail("Map must contain at least one tileset");
+
+        int firstGID = 1;
+        // Loop through all of the tile sets and make sure that they loaded correctly
+        foreach(TMXTileset tileset in tmx.map.tilesets)
+        {
+            // The first gid should be >= firstGID
+            Assert.GreaterOrEqual(tileset.firstgid, firstGID, "First Gid must be >= " + firstGID);
+            // External Tilesets is not suported
+            Assert.IsNullOrEmpty(tileset.source, "External tilesets are not supported");
+            // The name sould not be null or empty
+            Assert.IsNotNullOrEmpty(tileset.name, "name not loaded");
+            // The tile width should be > 0
+            Assert.Greater(tileset.tilewidth, 0, "tilewidth not loaded");
+            // The width of the tile should be >= the map.tilewidth
+            Assert.GreaterOrEqual(tileset.tilewidth, tmx.map.tilewidth, "The width of a tile must be >= the maps tilewidth");
+            // The tile height should be > 0
+            Assert.Greater(tileset.tileheight, 0, "tileheight not loaded");
+            // The height of the tile should be >= the map.tileheight
+            Assert.GreaterOrEqual(tileset.tileheight, tmx.map.tileheight, "The height of a tile must be >= the maps tileheight");
+            // The tile count should be > 0
+            Assert.Greater(tileset.tilecount, 0, "tilecount not loaded");
+            // The tile count should be > 0
+            Assert.Greater(tileset.columns, 0, "columns not loaded");
+        }//foreach(TMXTileset tileset in tmx.map.tilesets)
+    }//void TMXTilesetsLoaded()
+
+    [Test]
+    public void TMXTilesetsPropertiesLoaded()
+    {
+        foreach(TMXTileset tileset in tmx.map.tilesets)
+        {
+            // If you are using properties to set a value in your tileset that you need for use in Unity
+            // add a check here to make sure that it is included in your tileset
+
+            foreach(TMXProperty property in tileset.properties)
+            {
+                TMXPropertyLoaded(property);
+            }//foreach(TMXProperty property in tileset.properties)
+        }//foreach(TMXTileset tileset in tmx.map.tilesets)
+    }//void TMXTilesetsPropertiesLoaded()
+
+    [Test]
+    public void TMXTilesetsTileoffsetLoaded()
+    {
+        foreach(TMXTileset tileset in tmx.map.tilesets)
+        {
+            // If the tile set has a tile offset
+            if(tileset.tileoffset != null)
+            {
+                Assert.NotNull(tileset.tileoffset.x);
+                Assert.NotNull(tileset.tileoffset.y);
+            }
+        }//foreach(TMXTileset tileset in tmx.map.tilesets)
+    }//void TMXTilesetsTileoffsetLoaded()
+
+    [Test]
+    public void TMXTilesetsImageLoaded()
+    {
+        foreach(TMXTileset tileset in tmx.map.tilesets)
+        {
+            TMXImageLoaded(tileset.image);
+        }//foreach(TMXTileset tileset in tmx.map.tilesets)
+    }//void TMXTilesetsImageLoaded()
+
+    void TMXImageLoaded(TMXImage image)
+    {
+        // There is a source
+        Assert.IsNotNullOrEmpty(image.source, "Needs a source in order to display");
+        // The width and height loaded in
+        Assert.Greater(image.width, 0, "width not loaded");
+        Assert.Greater(image.height, 0, "height not loaded");
+    }
+
+    [Test]
+    public void TMXTilesetsTilesLoaded()
+    {
+        foreach(TMXTileset tileset in tmx.map.tilesets)
+        {
+            foreach(TMXTilesetTile tile in tileset.tiles)
+            {
+                // The id is the only thing that we need to make sure we have
+                // it must be > 0
+                Assert.Greater(tile.id, 0, "id failed to load");
+            }//foreach(TMXTilesetTile tile in tileset.tiles)
+        }//foreach(TMXTileset tileset in tmx.map.tilesets)
+    }//void TMXTilesetsTilesLoaded()
+
+    [Test]
+    public void TMXTilesetsTilesPropertiesLoaded()
+    {
+        foreach(TMXTileset tileset in tmx.map.tilesets)
+        {
+            foreach(TMXTilesetTile tile in tileset.tiles)
+            {
+                // If you are using properties to set a value in your tileset that you need for use in Unity
+                // add a check here to make sure that it is included in your tileset
+
+                foreach(TMXProperty property in tile.properties)
+                {
+                    TMXPropertyLoaded(property);
+                }//foreach(TMXProperty property in tile.properties)
+            }//foreach(TMXTilesetTile tile in tileset.tiles)
+        }//foreach(TMXTileset tileset in tmx.map.tilesets)
+    }//void TMXTilesetsTilesPropertiesLoaded()
+
+    [Test]
+    public void TMXTilesetsTilesAnimationsLoaded()
+    {
+        foreach(TMXTileset tileset in tmx.map.tilesets)
+        {
+            foreach(TMXTilesetTile tile in tileset.tiles)
+            {
+                foreach(TMXAnimation animation in tile.animation)
+                {
+                    foreach(TMXFrame frame in animation.frames)
+                    {
+                        // The tile Id must be > 0
+                        Assert.Greater(frame.tileid, 0, "tileid failed to load");
+                        // The duration must not be null
+                        Assert.IsNotNull(frame.duration, "duration failed to load");
+                    }//foreach(TMXFrame frame in animation.frames)
+                }//foreach(TMXAnimation animation in tile.animation)
+            }//foreach(TMXTilesetTile tile in tileset.tiles)
+        }//foreach(TMXTileset tileset in tmx.map.tilesets)
+    }//void TMXTilesetsTilesAnimationsLoaded()
 }//public class TMXTest

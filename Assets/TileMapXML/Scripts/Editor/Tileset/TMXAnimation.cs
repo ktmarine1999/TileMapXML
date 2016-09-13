@@ -15,5 +15,11 @@ namespace TileMapXML.Tileset
     {
         #region attributes
         #endregion
+
+        /// <summary>
+        /// The frames in the animation
+        /// </summary>
+        [XmlElement("frame")]
+        public List<TMXFrame> frames;
     }//public class TMXAnimation
 }//namespace TileMapXML.Tileset

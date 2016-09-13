@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Xml.Serialization;
+﻿using System.Xml.Serialization;
 
 namespace TileMapXML.Tileset
 {
@@ -11,6 +10,17 @@ namespace TileMapXML.Tileset
     public class TMXFrame
     {
         #region attributes
+        /// <summary>
+        /// The local ID of a tile within the parent tileset.
+        /// </summary>
+        [XmlAttribute]
+        public int tileid;
+
+        /// <summary>
+        /// How long (in milliseconds) this frame should be displayed before advancing to the next frame.
+        /// </summary>
+        [XmlAttribute]
+        public float duration;
         #endregion
     }//public class TMXFrame
 }//namespace TileMapXML.Tileset

@@ -24,6 +24,90 @@ namespace TileMapXML.Tileset
     public class TMXTileset
     {
         #region attributes
+        /// <summary>
+        /// The first global tile ID of this tileset (this global ID maps to the first tile in this tileset).
+        /// </summary>
+        [XmlAttribute]
+        public int firstgid;
+
+        /// <summary>
+        /// If this tileset is stored in an external TSX (Tile Set XML) file, this attribute refers to that file.
+        /// That TSX file has the same structure as the <tileset> element described here. 
+        ///     There is the firstgid attribute missing and this source attribute is also not there.
+        ///     These two attributes are kept in the TMX map, since they are map specific.
+        /// </summary>
+        [XmlAttribute]
+        public string source;
+
+        /// <summary>
+        /// The name of this tileset.
+        /// </summary>
+        [XmlAttribute]
+        public string name;
+
+        /// <summary>
+        /// The (maximum) width of the tiles in this tileset.
+        /// </summary>
+        [XmlAttribute]
+        public int tilewidth;
+
+        /// <summary>
+        /// The (maximum) height of the tiles in this tileset.
+        /// </summary>
+        [XmlAttribute]
+        public int tileheight;
+
+        /// <summary>
+        /// The spacing in pixels between the tiles in this tileset (applies to the tileset image).
+        /// </summary>
+        [XmlAttribute]
+        public int spacing = 0;
+
+        /// <summary>
+        /// The margin around the tiles in this tileset (applies to the tileset image).
+        /// </summary>
+        [XmlAttribute]
+        public int margin = 0;
+
+        /// <summary>
+        /// The number of tiles in this tileset (since 0.13)
+        /// </summary>
+        [XmlAttribute]
+        public int tilecount;
+
+        /// <summary>
+        /// The number of tile columns in the tileset.
+        /// For image collection tilesets it is editable and is used when displaying the tileset. (since 0.15)
+        /// </summary>
+        [XmlAttribute]
+        public int columns;
         #endregion
+
+        public TMXTileOffset tileoffset;
+
+        /// <summary>
+        /// Wraps any number of custom properties.
+        /// </summary>
+        [XmlArray("properties")]
+        [XmlArrayItem("property")]
+        public List<TMXProperty> properties;
+
+        /// <summary>
+        /// The image for this tile set
+        /// </summary>
+        public TMXImage image;
+
+        /// <summary>
+        /// The terrain types
+        /// </summary>
+        [XmlArray("terraintypes")]
+        [XmlArrayItem("terrain")]
+        public List<TMXTerrain> terraintypes;
+
+        /// <summary>
+        /// The tile information of the tile set
+        /// </summary>
+        [XmlElement("tile")]
+        public List<TMXTilesetTile> tiles;
     }//public class TMXTileset
 }//namespace TileMapXML.Tileset
