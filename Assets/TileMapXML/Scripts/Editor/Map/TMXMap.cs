@@ -2,7 +2,6 @@
 using System.Xml.Serialization;
 using TileMapXML.Layers;
 using TileMapXML.Map;
-using TileMapXML.Properties;
 using TileMapXML.Tileset;
 
 namespace TileMapXML
@@ -128,7 +127,9 @@ namespace TileMapXML
         /// <summary>
         /// Wraps any number of custom properties.
         /// </summary>
-        public TMXProperties properties;
+        [XmlArray("properties")]
+        [XmlArrayItem("property", IsNullable = false)]
+        public List<TMXProperty> properties;
 
         /// <summary>
         /// The Tilesets that this map contains

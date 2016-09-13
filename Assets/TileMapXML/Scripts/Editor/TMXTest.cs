@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System.Collections.Generic;
+using NUnit.Framework;
 using TileMapXML;
 
 public class TMXTest
@@ -95,17 +96,17 @@ public class TMXTest
                 // hexsidelength is only for hexagonal maps
                 Assert.AreEqual(-1, tmx.map.hexsidelength, "hexsidelength is only for hexagonal maps");
                 // staggeraxis is only for hexagonal and staggered maps
-                Assert.Greater((int)tmx.map.staggeraxis, 0, "staggeraxis is only for hexagonal and staggered maps");
+                Assert.Greater((int)tmx.map.staggeraxis, 0, "staggeraxis can not be none for hexagonal and staggered maps");
                 // staggerindex is only for hexagonal and staggered maps
-                Assert.Greater((int)tmx.map.staggerindex, 0, "staggerindex is only for hexagonal and staggered maps");
+                Assert.Greater((int)tmx.map.staggerindex, 0, "staggerindex can not be none for hexagonal and staggered maps");
                 break;
             case TileMapXML.Map.TMXMapOrientation.hexagonal:
                 // hexsidelength is only for hexagonal maps
                 Assert.Greater(tmx.map.hexsidelength, -1, "failed to load in a hexsidelength");
                 // staggeraxis is only for hexagonal and staggered maps
-                Assert.Greater((int)tmx.map.staggeraxis, 0, "staggeraxis is only for hexagonal and staggered maps");
+                Assert.Greater((int)tmx.map.staggeraxis, 0, "staggeraxis can not be none for hexagonal and staggered maps");
                 // staggerindex is only for hexagonal and staggered maps
-                Assert.Greater((int)tmx.map.staggerindex, 0, "staggerindex is only for hexagonal and staggered maps");
+                Assert.Greater((int)tmx.map.staggerindex, 0, "staggerindex can not be none for hexagonal and staggered maps");
                 break;
             default:
                 Assert.Fail("The orientation is not recognized by the system");
@@ -113,4 +114,62 @@ public class TMXTest
         }
     }//void MapLoaded
 
+    [Test]
+    public void TMXMapPropertiesLoaded()
+    {
+        // If the map contains no properties then this test fails
+        if(tmx.map.properties.Count == 0)
+        {
+            // IF the map has no properties then properties may not have been loaded correctly.
+            Assert.Fail("This map contains no properties, if this is intended then ignore this failure.");
+        }
+
+        foreach(TMXProperty property in tmx.map.properties)
+            TMXPropertyLoaded(property);
+
+        // If you are using properties to set a value in your map that you need for use in Unity
+        // add a check here to make sure that it is included in your map
+
+        Assert.Pass("Map contains " + tmx.map.properties.Count + ", if you have more properties they all did not load in");
+    }//void TMXMapPropertiesLoaded()
+
+    void TMXPropertyLoaded(TMXProperty property)
+    {
+        // Make sure that the property has a name
+        Assert.IsNotNullOrEmpty(property.name, "Failed to load a name for the property");
+        // Make sure that the property has a type
+        // Should default to string if the type in the xml attribute was missing
+        Assert.IsNotNullOrEmpty(property.type, "Failed to load a type for the property");
+        // Make sure that the property has a value
+        Assert.IsNotNullOrEmpty(property.value, "Failed to load the value for the property");
+
+        switch(property.type)
+        {
+            case "int":
+                int intValue;
+                Assert.True(int.TryParse(property.value, out intValue));
+                break;
+            case "float":
+                float floatValue;
+                Assert.True(float.TryParse(property.value, out floatValue));
+                break;
+            case "bool":
+                bool boolValue;
+                Assert.True(bool.TryParse(property.value, out boolValue));
+                break;
+            case "string":
+                // A string type should not convet into an int float or bool
+                // if it does then the property did not load in corrrctly
+                int intString;
+                Assert.False(int.TryParse(property.value, out intString),property.name + "=" + property.value + " is an int make sure you set the type correctly");
+                float floatString;
+                Assert.False(float.TryParse(property.value, out floatString), property.name + "=" + property.value + " is a float make sure you set the type correctly");
+                bool boolString;
+                Assert.False(bool.TryParse(property.value, out boolString), property.name + "=" + property.value + " is a bool make sure you set the type correctly");
+                break;
+            default:
+                Assert.Fail(property.type + " is not a vaild type");
+                break;
+        }//void TMXPropertyLoaded(TMXProperty property)
+    }
 }//public class TMXTest
