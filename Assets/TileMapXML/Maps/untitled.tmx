@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="5" height="5" tilewidth="32" tileheight="32" nextobjectid="1">
+ <tileset firstgid="1" name="dirt" tilewidth="32" tileheight="32" tilecount="18" columns="3">
+  <image source="../../../../../Pictures/Downloaded/lpc/Outdoors/dirt.png" width="96" height="192"/>
+ </tileset>
+ <tileset firstgid="19" name="house" tilewidth="32" tileheight="32" tilecount="63" columns="9">
+  <image source="../../../../../Pictures/Downloaded/lpc/Outdoors/house.png" width="288" height="224"/>
+ </tileset>
+ <tileset firstgid="82" name="RPGpack_sheet" tilewidth="64" tileheight="64" tilecount="260" columns="20">
+  <image source="../../../../../Pictures/Downloaded/openGameArt/kenney game assets/2D/RPGpack/Spritesheet/RPGpack_sheet.png" width="1280" height="832"/>
+ </tileset>
+ <tileset firstgid="342" name="RPG" tilewidth="1" tileheight="1" tilecount="0" columns="0"/>
+ <layer name="Tile Layer 1" width="5" height="5">
+  <data encoding="csv">
+0,0,0,0,0,
+0,0,0,0,0,
+0,0,0,0,0,
+0,0,0,0,0,
+0,0,0,0,0
+</data>
+ </layer>
+</map>

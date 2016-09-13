@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Xml.Serialization;
+﻿using System.Xml.Serialization;
 
 namespace TileMapXML.Tileset
 {
@@ -17,6 +16,30 @@ namespace TileMapXML.Tileset
     public class TMXImage
     {
         #region attributes
+        /// <summary>
+        /// The reference to the tileset image file (Tiled supports most common image formats).
+        /// </summary>
+        [XmlAttribute]
+        public string source;
+
+        /// <summary>
+        /// Defines a specific color that is treated as transparent(example value: "#FF00FF" for magenta).
+        /// Up until Tiled 0.12, this value is written out without a # but this is planned to change.
+        /// </summary>
+        [XmlAttribute]
+        public string trans;
+
+        /// <summary>
+        /// The image width in pixels (optional, used for tile index correction when the image changes)
+        /// </summary>
+        [XmlAttribute]
+        public int width;
+
+        /// <summary>
+        /// The image height in pixels (optional)
+        /// </summary>
+        [XmlAttribute]
+        public int height;
         #endregion
     }//public class TMXImage
 }//namespace TileMapXML.Tileset

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Xml.Serialization;
+﻿using System.Xml.Serialization;
 
 namespace TileMapXML.Tileset
 {
@@ -13,6 +12,11 @@ namespace TileMapXML.Tileset
     public class TMXTerrain
     {
         #region attributes
+        [XmlAttribute]
+        public string name;
+
+        [XmlAttribute]
+        public int tile;
         #endregion
     }//public class TMXTerrain
 }//namespace TileMapXML.Tileset

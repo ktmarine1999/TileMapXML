@@ -128,7 +128,7 @@ namespace TileMapXML
         /// Wraps any number of custom properties.
         /// </summary>
         [XmlArray("properties")]
-        [XmlArrayItem("property", IsNullable = false)]
+        [XmlArrayItem("property")]
         public List<TMXProperty> properties;
 
         /// <summary>
