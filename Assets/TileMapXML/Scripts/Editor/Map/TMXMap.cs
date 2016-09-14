@@ -140,9 +140,9 @@ namespace TileMapXML
         /// <summary>
         /// The Layers on this map
         /// </summary>
-        [XmlElement("layer", typeof(TMXLayer))]
+        [XmlElement("layer", typeof(TMXTileLayer))]// Changed this line from [XmlElement("layer", typeof(TMXLayer))]
         [XmlElement("objectgroup", typeof(TMXObjectGroup))]
         [XmlElement("imagelayer", typeof(TMXImageLayer))]
-        public List<object> layers;
+        public List<TMXLayer> layers;//Changed this line from public List<object> layers;
     }//public class TMXMap
 }//namespace TileMapXML

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using TileMapXML;
 using TileMapXML.Layers;
 using TileMapXML.Layers.Objects;
@@ -332,18 +330,18 @@ public class TMXTest
     {
         bool hasTileLayer = false;
 
-        foreach(var layer in tmx.map.layers)
+        foreach(TMXLayer layer in tmx.map.layers)// Changed from foreach(var layer in tmx.map.layers)
         {
             if(layer is TMXObjectGroup)
                 TMXObjectGroupLoaded(layer as TMXObjectGroup);
 
             else if(layer is TMXImageLayer)
                 TMXImageLayerLoaded(layer as TMXImageLayer);
-            else if(layer is TMXLayer)
+            else if(layer is TMXTileLayer)// Changed from else if(layer is TMXLayer)
             {
                 hasTileLayer = true;
-                TMXTileLayerLoaded(layer as TMXLayer);
-            }//else if(layer is TMXLayer)
+                TMXTileLayerLoaded(layer as TMXTileLayer);// Changed from TMXTileLayerLoaded(layer as TMXLayer)
+            }//else if(layer is TMXTileLayer)
         }//foreach(var layer in tmx.map.layers)
 
         //There must be at least one layer
@@ -366,7 +364,7 @@ public class TMXTest
     }//void TMXTilesetsPropertiesLoaded()
 
     #region Tile Layer Loaded
-    public void TMXTileLayerLoaded(TMXLayer layer)
+    public void TMXTileLayerLoaded(TMXTileLayer layer)// Changed from  public void TMXTileLayerLoaded(TMXLayer layer)
     {
         //Name of the layer must not be null
         Assert.IsNotNullOrEmpty(layer.name, "Layer must have a name");

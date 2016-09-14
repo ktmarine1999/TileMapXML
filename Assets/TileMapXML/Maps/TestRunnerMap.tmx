@@ -9,9 +9,7 @@
   <property name="floatProperty0" type="float" value="0"/>
   <property name="intProperty" type="int" value="1"/>
   <property name="intProperty0" type="int" value="0"/>
-  <property name="stringProperty">Hello World,
-This is a multiline string.
-We are now using the new multi line string</property>
+  <property name="stringProperty" value="Hello World"/>
  </properties>
  <tileset firstgid="1" name="outdoor" tilewidth="32" tileheight="32" tilecount="162" columns="9">
   <image source="Tilesets/Liberated Pixel Cup/outdoor.png" trans="ffaa55" width="288" height="576"/>

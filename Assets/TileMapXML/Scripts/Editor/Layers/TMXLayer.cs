@@ -4,7 +4,6 @@ using System.Xml.Serialization;
 namespace TileMapXML.Layers
 {
     /// <summary>
-    /// <layer>
     /// All<tileset> tags shall occur before the first<layer> tag so that parsers may rely on having the tilesets before needing to resolve tiles.
     /// •	name: The name of the layer.
     /// •	x: The x coordinate of the layer in tiles.Defaults to 0 and can no longer be changed in Tiled Qt.
@@ -16,7 +15,7 @@ namespace TileMapXML.Layers
     /// •	offsetx: Rendering offset for this layer in pixels.Defaults to 0. (since 0.14)
     /// •	offsety: Rendering offset for this layer in pixels. Defaults to 0. (since 0.14)
     /// 
-    /// Can contain: properties, data
+    /// Can contain: properties
     /// </summary>
     public class TMXLayer
     {
@@ -76,7 +75,5 @@ namespace TileMapXML.Layers
         [XmlArray("properties")]
         [XmlArrayItem("property")]
         public List<TMXProperty> properties;
-
-        public TMXData data;
     }//public class TMXLayer
 }//namespace TileMapXML.Layers
