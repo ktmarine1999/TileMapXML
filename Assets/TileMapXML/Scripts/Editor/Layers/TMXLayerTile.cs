@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Xml.Serialization;
+﻿using System.Xml.Serialization;
 
 namespace TileMapXML.Layers
 {
@@ -15,6 +14,8 @@ namespace TileMapXML.Layers
     public class TMXLayerTile
     {
         #region attributes
+        [XmlAttribute]
+        public int gid = -1;
         #endregion
     }//public class TMXLayerTile
 }//namespace TileMapXML.Layers

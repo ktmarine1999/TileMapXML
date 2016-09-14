@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using NUnit.Framework;
 using TileMapXML;
+using TileMapXML.Layers;
 using TileMapXML.Tileset;
 
 public class TMXTest
@@ -35,6 +37,7 @@ public class TMXTest
         LoadTMXFile(TMX_FILE_PATH);
     }//void Init()
 
+    #region Basic Test
     /// <summary>
     /// Verify that the tmx variable is not null
     /// </summary>
@@ -52,7 +55,9 @@ public class TMXTest
     {
         Assert.IsNotNull(tmx.map, "Failed to load map from " + TMX_FILE_PATH);
     }//void TMXMapIsNotNull
+    #endregion
 
+    #region Map Loaded Test
     [Test]
     public void TMXMapLoaded()
     {
@@ -133,7 +138,9 @@ public class TMXTest
 
         Assert.Pass("Map contains " + tmx.map.properties.Count + ", if you have more properties they all did not load in");
     }//void TMXMapPropertiesLoaded()
+    #endregion
 
+    #region Properties Loaded Test
     void TMXPropertyLoaded(TMXProperty property)
     {
         // Make sure that the property has a name
@@ -166,7 +173,7 @@ public class TMXTest
                 // A string type should not convet into an int float or bool
                 // if it does then the property did not load in corrrctly
                 int intString;
-                Assert.False(int.TryParse(property.value, out intString),property.name + "=" + property.value + " is an int make sure you set the type correctly");
+                Assert.False(int.TryParse(property.value, out intString), property.name + "=" + property.value + " is an int make sure you set the type correctly");
                 float floatString;
                 Assert.False(float.TryParse(property.value, out floatString), property.name + "=" + property.value + " is a float make sure you set the type correctly");
                 bool boolString;
@@ -177,7 +184,9 @@ public class TMXTest
                 break;
         }//void TMXPropertyLoaded(TMXProperty property)
     }
+    #endregion
 
+    #region Tileset Loaded
     [Test]
     public void TMXTilesetsLoaded()
     {
@@ -205,7 +214,8 @@ public class TMXTest
             Assert.GreaterOrEqual(tileset.tileheight, tmx.map.tileheight, "The height of a tile must be >= the maps tileheight");
             // The tile count should be > 0
             Assert.Greater(tileset.tilecount, 0, "tilecount not loaded");
-            // The tile count should be > 0
+            firstGID += tileset.tilecount;
+            // The columns should be > 0
             Assert.Greater(tileset.columns, 0, "columns not loaded");
         }//foreach(TMXTileset tileset in tmx.map.tilesets)
     }//void TMXTilesetsLoaded()
@@ -239,6 +249,7 @@ public class TMXTest
         }//foreach(TMXTileset tileset in tmx.map.tilesets)
     }//void TMXTilesetsTileoffsetLoaded()
 
+    #region Tileset Image Loaded
     [Test]
     public void TMXTilesetsImageLoaded()
     {
@@ -256,7 +267,9 @@ public class TMXTest
         Assert.Greater(image.width, 0, "width not loaded");
         Assert.Greater(image.height, 0, "height not loaded");
     }
+    #endregion
 
+    #region Tileset Tile Loaded
     [Test]
     public void TMXTilesetsTilesLoaded()
     {
@@ -309,4 +322,92 @@ public class TMXTest
             }//foreach(TMXTilesetTile tile in tileset.tiles)
         }//foreach(TMXTileset tileset in tmx.map.tilesets)
     }//void TMXTilesetsTilesAnimationsLoaded()
+    #endregion
+    #endregion
+
+    #region Layer Loaded
+    [Test]
+    public void TMXLayersLoaded()
+    {
+        bool hasTileLayer = false;
+
+        foreach(var layer in tmx.map.layers)
+        {
+            if(layer is TMXObjectGroup)
+                TMXObjectGroupLoaded(layer as TMXObjectGroup);
+
+            else if(layer is TMXImageLayer)
+                TMXImageLayerLoaded(layer as TMXImageLayer);
+            else if(layer is TMXLayer)
+            {
+                hasTileLayer = true;
+                TMXTileLayerLoaded(layer as TMXLayer);
+            }//else if(layer is TMXLayer)
+        }//foreach(var layer in tmx.map.layers)
+
+        //There must be at least one layer
+        Assert.True((tmx.map.layers.Count > 0) && (hasTileLayer), "There needs to be at least on tile layer");
+    }//void TMXLayersLoaded()
+
+    [Test]
+    public void TMXLayersPropertiesLoaded()
+    {
+        //foreach(TMXLayer layer in tmx.map.layers)
+        //{
+        //    // If you are using properties to set a value in your tile layer that you need for use in Unity
+        //    // add a check here to make sure that it is included in your tileset
+
+        //    foreach(TMXProperty property in layer.properties)
+        //    {
+        //        TMXPropertyLoaded(property);
+        //    }//foreach(TMXProperty property in layer.properties)
+        //}//foreach(TMXLayer layer in tmx.map.layers)
+    }//void TMXTilesetsPropertiesLoaded()
+
+    #region Tile Layer Loaded
+    public void TMXTileLayerLoaded(TMXLayer layer)
+    {
+        //Name of the layer must not be null
+        Assert.IsNotNullOrEmpty(layer.name, "Layer must have a name");
+        //The data is loaded correctly
+        TMXLayerDataLoaded(layer.data);
+    }//void TMXTileLayerLoaded(TMXLayer layer)
+
+    #region TMXLayerData Loaded
+    public void TMXLayerDataLoaded(TMXData data)
+    {
+        // The encoding and compression must be null
+        Assert.IsNullOrEmpty(data.encoding, "Invalid encoding used must be XML");
+        Assert.IsNullOrEmpty(data.compression, "Invalid compresseion used must be uncompressed");
+
+        foreach(TMXLayerTile tile in data.tiles)
+        {
+            TMXLayerTileLoaded(tile);
+        }//foreach(TMXLayerTile tile in data.tiles)
+    }//void TMXLayerDataLoaded(TMXData data)
+
+    #region TMXLayerTile Loaded
+    public void TMXLayerTileLoaded(TMXLayerTile tile)
+    {
+        //The gid should be > -1
+        Assert.Greater(tile.gid, -1, "gid not loaded correctly");
+    }//void TMXLayerTileLoaded(TMXLayerTile tile)
+    #endregion
+    #endregion
+    #endregion
+
+    #region Object Group Loaded
+    private void TMXObjectGroupLoaded(TMXObjectGroup tMXObjectGroup)
+    {
+
+    }
+    #endregion
+
+    #region Image Layer Loaded
+    private void TMXImageLayerLoaded(TMXImageLayer tMXImageLayer)
+    {
+
+    }
+    #endregion
+    #endregion
 }//public class TMXTest

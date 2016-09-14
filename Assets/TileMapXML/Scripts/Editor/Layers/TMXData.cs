@@ -5,8 +5,10 @@ namespace TileMapXML.Layers
 {
     /// <summary>
     /// <data>
-    /// •	encoding: The encoding used to encode the tile layer data.When used, it can be "base64" and "csv" at the moment.
-    /// •	compression: The compression used to compress the tile layer data.Tiled Qt supports "gzip" and "zlib".
+    /// •	encoding: The encoding used to encode the tile layer data.
+    ///               When used, it can be "base64" and "csv" at the moment.
+    /// •	compression: The compression used to compress the tile layer data.
+    ///                  Tiled Qt supports "gzip" and "zlib".
     /// 
     /// When no encoding or compression is given, the tiles are stored as individual XML tile elements.
     /// Next to that, the easiest format to parse is the "csv" (comma separated values) format.
@@ -23,6 +25,25 @@ namespace TileMapXML.Layers
     public class TMXData
     {
         #region attributes
+        /// <summary>
+        /// The encoding used to encode the tile layer data.
+        /// When used, it can be "base64" and "csv" at the moment.
+        /// Must be null or empty for use in unity
+        /// </summary>
+        public string encoding;
+
+        /// <summary>
+        /// The compression used to compress the tile layer data.
+        /// Tiled Qt supports "gzip" and "zlib".
+        /// Must be null or empty for use in unity
+        /// </summary>
+        public string compression;
         #endregion
+
+        /// <summary>
+        /// List of tiles on a tile layer.
+        /// </summary>
+        [XmlElement("tile")]
+        public List<TMXLayerTile> tiles;
     }//public class TMXData
 }//namespace TileMapXML.Layers

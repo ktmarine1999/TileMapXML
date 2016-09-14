@@ -247,7 +247,7 @@ We are now using the new multi line string</property>
    </animation>
   </tile>
  </tileset>
- <layer name="Tile Layer 1" width="5" height="5">
+ <layer name="Tile Layer 1" width="5" height="5" offsetx="-9" offsety="-1">
   <data>
    <tile gid="32"/>
    <tile gid="32"/>
@@ -276,7 +276,7 @@ We are now using the new multi line string</property>
    <tile gid="83"/>
   </data>
  </layer>
- <layer name="Tile Layer 2" width="5" height="5">
+ <layer name="Tile Layer 2" width="5" height="5" visible="0">
   <data>
    <tile gid="159"/>
    <tile gid="0"/>

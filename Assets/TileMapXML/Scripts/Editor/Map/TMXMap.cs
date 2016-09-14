@@ -141,8 +141,8 @@ namespace TileMapXML
         /// The Layers on this map
         /// </summary>
         [XmlElement("layer", typeof(TMXLayer))]
-        [XmlElement("objectgroup", typeof(TMXLayer))]
-        [XmlElement("imagelayer", typeof(TMXLayer))]
+        [XmlElement("objectgroup", typeof(TMXObjectGroup))]
+        [XmlElement("imagelayer", typeof(TMXImageLayer))]
         public List<object> layers;
     }//public class TMXMap
 }//namespace TileMapXML
