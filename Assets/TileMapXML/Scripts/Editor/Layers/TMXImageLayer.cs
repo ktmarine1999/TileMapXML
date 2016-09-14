@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Xml.Serialization;
-
-namespace TileMapXML.Layers
+﻿namespace TileMapXML.Layers
 {
     /// <summary>
     /// <imagelayer>
@@ -19,9 +16,14 @@ namespace TileMapXML.Layers
     /// 
     /// Can contain: properties, image
     /// </summary>
-    public class TMXImageLayer
+    public class TMXImageLayer : TMXLayer
     {
         #region attributes
+        // All are in TMXLayer
         #endregion
+
+        // Properties is in TMXLayer
+
+        public Tileset.TMXImage image;
     }//public class TMXImageLayer
 }//namespace TileMapXML.Layers

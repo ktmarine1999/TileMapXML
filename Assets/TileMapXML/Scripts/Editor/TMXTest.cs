@@ -353,16 +353,16 @@ public class TMXTest
     [Test]
     public void TMXLayersPropertiesLoaded()
     {
-        //foreach(TMXLayer layer in tmx.map.layers)
-        //{
-        //    // If you are using properties to set a value in your tile layer that you need for use in Unity
-        //    // add a check here to make sure that it is included in your tileset
+        foreach(TMXLayer layer in tmx.map.layers)
+        {
+            // If you are using properties to set a value in your tile layer that you need for use in Unity
+            // add a check here to make sure that it is included in your tileset
 
-        //    foreach(TMXProperty property in layer.properties)
-        //    {
-        //        TMXPropertyLoaded(property);
-        //    }//foreach(TMXProperty property in layer.properties)
-        //}//foreach(TMXLayer layer in tmx.map.layers)
+            foreach(TMXProperty property in layer.properties)
+            {
+                TMXPropertyLoaded(property);
+            }//foreach(TMXProperty property in layer.properties)
+        }//foreach(TMXLayer layer in tmx.map.layers)
     }//void TMXTilesetsPropertiesLoaded()
 
     #region Tile Layer Loaded
@@ -504,7 +504,11 @@ public class TMXTest
     #region Image Layer Loaded
     private void TMXImageLayerLoaded(TMXImageLayer imageLayer)
     {
+        //Name of the layer must not be null
+        Assert.IsNotNullOrEmpty(imageLayer.name, "imagelayer must have a name");
 
+        // verify that the image is vaild
+        TMXImageLoaded(imageLayer.image);
     }//void TMXImageLayerLoaded(TMXImageLayer imageLayer)
     #endregion
     #endregion
