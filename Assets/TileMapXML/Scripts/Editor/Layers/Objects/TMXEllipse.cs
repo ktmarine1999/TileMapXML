@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Xml.Serialization;
-
-namespace TileMapXML.Layers.Objects
+﻿namespace TileMapXML.Layers.Objects
 {
     /// <summary>
     /// <ellipse>

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Xml.Serialization;
+﻿using System.Xml.Serialization;
 
 namespace TileMapXML.Layers.Objects
 {
@@ -16,6 +15,11 @@ namespace TileMapXML.Layers.Objects
     public class TMXPolyline
     {
         #region attributes
+        /// <summary>
+        /// A list of x, y coordinates in pixels.
+        /// </summary>
+        [XmlAttribute]
+        public string points;
         #endregion
     }//public class TMXPolyline
 }//namespace TileMapXML.Layers.Objects

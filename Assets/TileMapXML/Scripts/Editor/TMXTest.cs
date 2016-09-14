@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using NUnit.Framework;
 using TileMapXML;
 using TileMapXML.Layers;
+using TileMapXML.Layers.Objects;
 using TileMapXML.Tileset;
 
 public class TMXTest
@@ -397,17 +398,114 @@ public class TMXTest
     #endregion
 
     #region Object Group Loaded
-    private void TMXObjectGroupLoaded(TMXObjectGroup tMXObjectGroup)
+    private void TMXObjectGroupLoaded(TMXObjectGroup objectgroup)
     {
+        //Name of the objectGroup must not be null
+        Assert.IsNotNullOrEmpty(objectgroup.name, "objectgroup must have a name");
 
-    }
+        foreach(TMXObject tmxObject in objectgroup.objects)
+        {
+            // check the object loaded correctly
+            TMXObjectLoaded(tmxObject);
+        }//foreach(TMXObject tmxObject in objectGroup.objects)
+    }//void TMXObjectGroupLoaded(TMXObjectGroup objectGroup)
+
+    #region TMXObject Loaded
+    void TMXObjectLoaded(TMXObject tmxObject)
+    {
+        // The id must be a valid id
+        Assert.Greater(tmxObject.id, 0, "id not loaded");
+
+        // if this object is an elipse
+        if(tmxObject.ellipse != null)
+        {
+            // it must have a width and a height
+            Assert.Greater(tmxObject.width, 0, "width not loaded");
+            Assert.Greater(tmxObject.height, 0, "height not loaded");
+        }//object is an elipse
+         // else if this object is a polygon
+        else if(tmxObject.polygon != null)
+        {
+            // check the points string is valid
+            TMXObjectPointsLoaded(tmxObject.polygon.points);
+        }//object is a polygon
+         // else if this object is a polyline
+        else if(tmxObject.polyline != null)
+        {
+            // check the points string is valid
+            TMXObjectPointsLoaded(tmxObject.polyline.points);
+        }//object is a polyline
+         // else if this object is an image
+        else if(tmxObject.image != null)
+        {
+            // it must have a valid gid
+            Assert.Greater(tmxObject.gid, 0);
+            // it must have a width and a height
+            Assert.Greater(tmxObject.width, 0, "width not loaded");
+            Assert.Greater(tmxObject.height, 0, "height not loaded");
+            // make sure the image is vaild
+            TMXImageLoaded(tmxObject.image);
+        }//object is an image
+         // else this object is a rectangle
+        else
+        {
+            // it must have a width and a height
+            Assert.Greater(tmxObject.width, 0, "width not loaded");
+            Assert.Greater(tmxObject.height, 0, "height not loaded");
+        }//object is a rectangle
+    }//void TMXObjectLoaded(TMXObject tmxObject)
+
+    void TMXObjectPointsLoaded(string pointsList)
+    {
+        // seperate the points into pairs of x,y coordinates
+        string[] points = pointsList.Split(' ');
+
+        // loop trhough the points array
+        foreach(string point in points)
+        {
+            // seprate the x and y coordinates
+            // x=coord[0], y=coord[1]
+            string[] coord = point.Split(',');
+            // floats to store the x and y coords
+            float x, y;
+            // make sure the x coord can be parased
+            Assert.True(float.TryParse(coord[0], out x), "x coord is invalid");
+            // make sure the y coord can be parased
+            Assert.True(float.TryParse(coord[1], out y), "y coord is invalid");
+        }//foreach(string point in points)
+    }//TMXObjectPointsLoaded(string pointsList)
+
+    [Test]
+    public void TMXObjectGroupsObjectsPropertiesLoaded()
+    {
+        // loop through all of the layers on the map
+        foreach(var layer in tmx.map.layers)
+        {
+            // if the layer is an objectgroup
+            if(layer is TMXObjectGroup)
+            {
+                // get a reference  to the layer as an objectgroup
+                TMXObjectGroup objectgroup = layer as TMXObjectGroup;
+                foreach(TMXObject tmxObject in objectgroup.objects)
+                {
+                    // check the properties are valid
+                    foreach(TMXProperty property in tmxObject.properties)
+                    {
+                        //check the property is valid
+                        TMXPropertyLoaded(property);
+                    }//foreach(TMXProperty property in tmxObject.properties)
+                }//foreach(TMXObject tmxObject in objectGroup.objects)
+            }//if(layer is TMXObjectGroup)
+        }//foreach(var layer in tmx.map.layers)
+    }//void TMXObjectGroupsObjectsPropertiesLoaded()
+    #endregion
     #endregion
 
     #region Image Layer Loaded
-    private void TMXImageLayerLoaded(TMXImageLayer tMXImageLayer)
+    private void TMXImageLayerLoaded(TMXImageLayer imageLayer)
     {
 
-    }
+    }//void TMXImageLayerLoaded(TMXImageLayer imageLayer)
     #endregion
     #endregion
 }//public class TMXTest
